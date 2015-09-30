@@ -127,7 +127,14 @@ class OsobyPresenter extends BasePresenter
     }
     
     public function actionDelete($id) {
-        $this->testAndRedirectSpravce();
+        if(!$this->user->loggedIn) {
+            $this->error('Pro tuto akci musí být uživatel přihlášen.');
+        }
+        
+        if(!$this->user->isInRole('spravce')) {
+            $this->error('Omlouváme se, ale tato funkce je pouze pro správce.');
+        }
+        
         $u = $this->uzivatel->find($id);
         
         if(!$u) {
