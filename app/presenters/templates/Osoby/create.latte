@@ -1,0 +1,22 @@
+{block content}
+
+<h3>Tvorba / založení nových osob</h3>
+
+<a n:href="Osoby:default"><span class="glyphicon glyphicon-triangle-left" aria-hidden="true"></span> Zpět</a>
+<br><br>
+
+<p> Do pole vložte osoby ve tvaru
+<pre>
+Jméno osoby;email;číslo jednotky
+</pre>
+například
+<pre>
+Petr Bartoň;xkralik@seznam.cz;10
+Karel Novák;novak@seznam.cz;11
+</pre>
+Všem osobám bude založen účet a zasláno heslo na email.
+</p>
+
+{control osobaCreateForm}
+        
+{/block}

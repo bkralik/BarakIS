@@ -1,0 +1,26 @@
+{block content}
+
+<h3>Editace osoby <small>{$osoba->jmeno}</small></h3>
+<a n:href="Osoby:default"><span class="glyphicon glyphicon-triangle-left" aria-hidden="true"></span> Zpět</a>
+
+{control osobaEditForm}
+
+<div class="modal fade" id="modal-delete" tabindex="-1" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 id="mySmallModalLabel-x" class="modal-title">Výmaz osoby</h4>
+      </div>
+      <div class="modal-body">
+        Opravdu si přejete smazat osobu <b>{$osoba->jmeno}</b> - <b>{$osoba->email}</b> ? Tato akce je nevratná...
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-danger" n:href="Osoby:delete id=>$osoba->id" role="button">Smazat</a>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Storno</button>
+      </div>
+    </div>
+  </div>
+</div>
+        
+{/block}

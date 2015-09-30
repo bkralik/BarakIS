@@ -1,0 +1,34 @@
+{block content}
+
+<h3>Dokumenty <small n:if="$user->loggedIn && $user->isInRole('spravce')"><a n:href="Dokumenty:upload"><span class="glyphicon glyphicon-star"></span> Nahrát</a></small></h3>
+
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Popis</th>
+        <th>Jméno souboru</th>
+        <th>Datum nahrání</th>
+        <th>Kategorie</th>
+        <th n:if="$user->loggedIn">Veřejné?</th>
+        <th>&nbsp;</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr n:foreach="$dokumenty as $d">
+        <td>{$d->popis}</td>
+        <td>{$d->jmeno}</td>
+        <td>{$d->casNahrani|date:'%d.%m.%Y'}</td>
+        <td>{$d->kategorie->jmeno}</td>
+        <td n:if="$user->loggedIn">{$d->verejne?'ano':'ne'}</td>
+        <td>
+          <a n:href="Dokumenty:download $d->id"><span class="glyphicon glyphicon-download-alt"></span> Stáhnout</a> &nbsp;&nbsp;
+          <a n:if="$user->loggedIn && $user->isInRole('spravce')" n:href="Dokumenty:edit $d->id"><span class="glyphicon glyphicon-pencil"></span> Upravit</a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+        
+<i n:if="!$user->loggedIn">Pro nečleny SVJ jsou dostupné pouze základní dokumenty. Pro zobrazení všech se přihlašte, prosím.</i>        
+{/block}

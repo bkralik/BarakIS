@@ -1,0 +1,30 @@
+{block content}
+
+<h3>Osoby <small n:if="$user->loggedIn && $user->isInRole('spravce')"><a n:href="Osoby:create"><span class="glyphicon glyphicon-star"></span> Založit</a></small></h3>
+
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Příjmení a jméno</th>
+        <th>Email</th>
+        <th>Role</th>
+        <th>Číslo jednotky</th>
+        <th n:if="$user->isInRole('spravce')" data-toggle="tooltip" data-placement="top" data-container="body" title="Tuto informaci vidíte pouze vy - správce">Chce emaily?</th>
+        <th n:if="$user->loggedIn && $user->isInRole('spravce')">&nbsp;</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr n:foreach="$osoby as $o">
+        <td>{$o->jmeno}</td>
+        <td>{$o->email}</td>
+        <td>{$transformer($o->related('role', 'uzivatel_id'))}</td>
+        <td>{$o->cisloJednotky}</td>
+        <td n:if="$user->isInRole('spravce')">{$o->chceMaily?'ano':'ne'}</td>
+        <td n:if="$user->loggedIn && $user->isInRole('spravce')"><a n:href="Osoby:edit $o->id"><span class="glyphicon glyphicon-pencil"></span> Upravit</a></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+        
+{/block}

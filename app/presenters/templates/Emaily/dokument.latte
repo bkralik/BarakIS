@@ -1,0 +1,20 @@
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Nový dokument na stránkách SVJ Čiklova 647/3</title>
+</head>
+<body>
+    <p>Dobrý den,</p>
+
+    <p>Na stránky SVJ Čiklova 647/3 byl přidán nový dokument {$dokument->jmeno} - {$dokument->popis}. 
+      Je dostupný ke stažený po přihlášení na <a href="{$link}">odkazu</a> a v příloze.</p>
+    
+    <br><br>Detaily<br>
+    <table border="0">
+      <tr><td>Jméno souboru</td><td>{$dokument->jmeno}</td></tr>
+      <tr><td>Popis dokumentu</td><td>{$dokument->popis}</td></tr>
+      <tr><td>Datum nahrání</td><td>{$dokument->casNahrani|date:'%d.%m.%Y'}</td></tr>
+      <tr><td>Je veřejný?</td><td>{$dokument->verejne?'ano':'ne'}</td></tr>
+    </table>
+</body>
+</html>
