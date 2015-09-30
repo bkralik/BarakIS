@@ -7,3 +7,4 @@ vendor/*
 app/config/config.local.neon
 nbproject/private/*
 dokumenty/*
+!dokumenty/.gitignore
