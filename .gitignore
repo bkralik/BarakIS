@@ -1,10 +1,9 @@
 log/*
 temp/*
 vendor/*
+dokumenty/*
 !.gitignore
 !.htaccess
 !web.config
 app/config/config.local.neon
 nbproject/private/*
-dokumenty/*
-!dokumenty/.gitignore
