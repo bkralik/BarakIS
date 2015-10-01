@@ -11,16 +11,15 @@ use Nette,
 
 class OsobyPresenter extends BasePresenter
 {        
-    /** @var uzivatel */
-    private $uzivatel;
+    /** @var Model\Uzivatel @inject */
+    public $uzivatel;
     
-    /** @var role */
-    private $role;
+    /** @var Model\Role @inject */
+    public $role;
+    
+    /** @var Model\DruzstvoMailer @inject **/
+    public $mailer;
 
-    public function __construct(Model\Uzivatel $uzivatel, Model\Role $role) {
-        $this->uzivatel = $uzivatel;
-        $this->role = $role;
-    }
 	public function renderDefault()	{
         if(!$this->user->loggedIn) {
             $this->flashMessage('Tato sekce je pouze pro registrované. Pro pokračování se přihlašte, prosím.');
@@ -237,14 +236,12 @@ class OsobyPresenter extends BasePresenter
             $this->error('Omlouváme se, ale tato funkce je pouze pro správce.');
         }
         
-        $mailer = new Model\DruzstvoMailer();
-        
         $osoby = $this->parseOsoby($values->osoby);
         foreach($osoby as &$osoba) {
             $heslo = Model\UserManager::genPassword(10);
             $osoba['heslo'] = sha1($heslo);
             $osoba['chceMaily'] = 1;
-            $mailer->sendRegistrace($osoba['jmeno'], $heslo, $osoba['email']);
+            $this->mailer->sendRegistrace($osoba['jmeno'], $heslo, $osoba['email']);
             $id = $this->uzivatel->insert($osoba);
             $this->role->insert(array('role' => 1, 'uzivatel_id' => $id));
         }
