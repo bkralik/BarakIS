@@ -4,9 +4,7 @@ namespace App\Presenters;
 
 use Nette,
     App\Model,
-    Nette\Application\UI\Form,
-    Instante\Bootstrap3Renderer\BootstrapRenderer,
-    Nette\Utils\Validators;
+    Nette\Application\UI\Form;
 
 
 class KontaktPresenter extends BasePresenter
@@ -19,14 +17,14 @@ class KontaktPresenter extends BasePresenter
     
     /** @var Model\DruzstvoMailer @inject */
     public $mailer;
-
-    /*public function __construct(Model\Uzivatel $uzivatel, Model\Role $role) {
-        $this->uzivatel = $uzivatel;
-        $this->role = $role;
-    }*/
     
 	public function renderDefault()	{
-        
+        if($this->user->isLoggedIn()) {
+            $identity = $this->user->getIdentity();
+            $defaults["email"] = $identity->data['email'];
+            $defaults["name"] = $identity->data['jmeno'];
+            $this['emailForm']->setDefaults($defaults);
+        }
 	}
 
     protected function createComponentEmailForm()
