@@ -97,6 +97,8 @@ class OsobyPresenter extends BasePresenter
             $this->redirect('Dokumenty:default');
         }
         
+        unset($values->delete);
+        
         if(isset($values->role)) {
             $noveRole = $values->role;
             unset($values->role);
