@@ -245,7 +245,7 @@ class OsobyPresenter extends BasePresenter
             $id = $this->uzivatel->insert($osoba);
             $this->role->insert(array('role' => 1, 'uzivatel_id' => $id));
         }
-        $this->flashMessage('Uživatelé byli úspěšně zaregistrováni.', 'success');
+        $this->flashMessage('Uživatelé byli úspěšně zaregistrováni. Heslo jim bylo zasláno na uvedený email.', 'success');
         $this->redirect('Osoby:default');
     }
     
