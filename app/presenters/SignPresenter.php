@@ -22,13 +22,14 @@ class SignPresenter extends BasePresenter
 	protected function createComponentSignInForm()
 	{
 		$form = $this->factory->create();
-		$form->onSuccess[] = function ($form) {
-            $this->log->l('user.login');
-			$form->getPresenter()->redirect('Homepage:');
-		};
+		$form->onSuccess[] = array($this, 'SignInFormSuccess');
 		return $form;
 	}
 
+    public function SignInFormSuccess($form) {
+        $this->log->l('user.login');
+		$form->getPresenter()->redirect('Homepage:');
+    }
 
 	public function actionOut()
 	{
