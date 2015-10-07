@@ -19,6 +19,9 @@ class OsobyPresenter extends BasePresenter
     
     /** @var Model\DruzstvoMailer @inject **/
     public $mailer;
+    
+    /** @var Model\Log @inject **/
+    public $log;
 
 	public function renderDefault()	{
         if(!$this->user->loggedIn) {
@@ -106,9 +109,11 @@ class OsobyPresenter extends BasePresenter
         
         if(empty($values->id)) {
             $id = $this->uzivatel->insert($values);
+            $this->log->l('uzivatel.create', $id);
         } else {
             $id = $values->id;
             $this->uzivatel->find($id)->update($values);
+            $this->log->l('uzivatel.edit', $id);
         }
         
         if(isset($noveRole)) {
@@ -147,6 +152,7 @@ class OsobyPresenter extends BasePresenter
         $u->delete();
         
         $this->flashMessage('Uživatel byl úspěšně smazán.', 'success');
+        $this->log->l('uzivatel.delete', $id);
         $this->redirect('Osoby:default');
     }
     
@@ -181,6 +187,7 @@ class OsobyPresenter extends BasePresenter
         }
         $this->uzivatel->update($this->user->id, array('heslo' => sha1($values->noveHeslo)));
         $this->flashMessage('Heslo bylo úspěšně změněno.', 'success');
+        $this->log->l('uzivatel.passchange');
     }
     
     public function osobaPasswordFormValidate(Form $form, $values) {
@@ -248,6 +255,7 @@ class OsobyPresenter extends BasePresenter
             $this->role->insert(array('role' => 1, 'uzivatel_id' => $id));
         }
         $this->flashMessage('Uživatelé byli úspěšně zaregistrováni. Heslo jim bylo zasláno na uvedený email.', 'success');
+        $this->log->l('uzivatel.masscreate', count($osoby));
         $this->redirect('Osoby:default');
     }
     

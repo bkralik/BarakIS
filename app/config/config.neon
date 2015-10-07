@@ -27,4 +27,5 @@ services:
 	- App\Model\Dokument
 	- App\Model\Kategorie
 	- App\Model\DruzstvoMailer(%mailerFromAddress%)
+	- App\Model\Log
 	router: App\RouterFactory::createRouter

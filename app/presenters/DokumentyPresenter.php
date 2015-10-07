@@ -22,6 +22,9 @@ class DokumentyPresenter extends BasePresenter
     /** @var Model\DruzstvoMailer */
     private $druzstvoMailer;
     
+    /** @var Model\Log @inject */
+    public $log;
+    
     public function __construct(Model\Dokument $dokument, Model\Kategorie $kategorie, Model\Uzivatel $uzivatel, Model\DruzstvoMailer $dm) {
         $this->dokument = $dokument;
         $this->kategorie = $kategorie;
@@ -92,8 +95,10 @@ class DokumentyPresenter extends BasePresenter
         if($values->rozeslatMaily) {
             $pocet = $this->sendDokumentMails($id);
             $this->flashMessage('Dokument byl úspěšně nahrán, emaily byly rozeslány '.$pocet.' lidem.', 'success');
+            $this->log->l('dokument.upload', $id.';mails');
         } else {
             $this->flashMessage('Dokument byl úspěšně nahrán. Emaily nebyly rozeslány.', 'success');
+            $this->log->l('dokument.upload', $id.';nomails');
         }
         
         $this->redirect('Dokumenty:default');        
@@ -122,6 +127,7 @@ class DokumentyPresenter extends BasePresenter
             $this->redirect('Sign:in');
         }
         
+        $this->log->l('dokument.download', $id);
         $this->sendResponse(new \Nette\Application\Responses\FileResponse(Model\Dokument::DOKUMENTY_FOLDER.$d->soubor, $d->jmeno));
     }
 
@@ -168,6 +174,7 @@ class DokumentyPresenter extends BasePresenter
         $d->update($values);
         
         $this->flashMessage('Dokument byl úspěšně upraven.', 'success');
+        $this->log->l('dokument.edit', $values->id);
         $this->redirect('Dokumenty:default');        
     }
     
@@ -194,6 +201,7 @@ class DokumentyPresenter extends BasePresenter
         $d->delete();
         
         $this->flashMessage('Dokument byl úspěšně smazán.', 'success');
+        $this->log->l('dokument.delete', $id);
         $this->redirect('Dokumenty:default');
     }
     

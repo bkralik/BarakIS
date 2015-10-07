@@ -18,6 +18,9 @@ class KontaktPresenter extends BasePresenter
     /** @var Model\DruzstvoMailer @inject */
     public $mailer;
     
+    /** @var Model\Log @inject */
+    public $log;
+    
 	public function renderDefault()	{
         if($this->user->isLoggedIn()) {
             $identity = $this->user->getIdentity();
@@ -83,6 +86,7 @@ class KontaktPresenter extends BasePresenter
         $this->mailer->sendKontaktMail($values->email, $values->name, $values->message,  array_unique($spravciEmaily));
 
         $this->flashMessage('Zpráva byla úspěšeně odeslána.');
+        $this->log->l('kontakt.send');
         $this->redirect('Kontakt:');
     }
 }
