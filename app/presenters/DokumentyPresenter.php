@@ -58,6 +58,9 @@ class DokumentyPresenter extends BasePresenter
         
         $form->addCheckbox('verejne', 'Veřejný soubor');
         
+        $form->addCheckbox('rozeslatMaily', 'Rozeslat maily')
+             ->setValue(true);
+        
         $form->addSubmit('send', 'Nahrát soubor');
         
         
@@ -85,9 +88,14 @@ class DokumentyPresenter extends BasePresenter
         $dbDokument['casNahrani'] = time();
         
         $id = $this->dokument->insert($dbDokument);
-        $pocet = $this->sendDokumentMails($id);
         
-        $this->flashMessage('Dokument byl úspěšně nahrán, emaily byly rozeslány '.$pocet.' lidem.', 'success');
+        if($values->rozeslatMaily) {
+            $pocet = $this->sendDokumentMails($id);
+            $this->flashMessage('Dokument byl úspěšně nahrán, emaily byly rozeslány '.$pocet.' lidem.', 'success');
+        } else {
+            $this->flashMessage('Dokument byl úspěšně nahrán. Emaily nebyly rozeslány.', 'success');
+        }
+        
         $this->redirect('Dokumenty:default');        
     }
     
