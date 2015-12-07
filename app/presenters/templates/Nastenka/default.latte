@@ -1,0 +1,38 @@
+{block content}
+
+<h3>Nástěnka <!--<small n:if="$user->loggedIn && $user->isInRole('spravce')"><a n:href="Osoby:create"><span class="glyphicon glyphicon-star"></span> Založit</a></small>--></h3>
+
+<div class="table-responsive">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Nadpis</th>
+        <th>Příspěvek</th>
+        <th>Vystaveno</th>
+        <th>Vystavil</th>
+        <th>Platné do</th>
+        <th>Veřejné?</th>
+        <th>akce</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr n:foreach="$nastenka as $prispevek" class="{}">
+        <td>{$prispevek->nadpis}</td>
+        <td>{$prispevek->text|truncate:50}</td>
+        <td>{$prispevek->platneOd|date:'j. n. Y'}</td>
+        <td>{$prispevek->autor}</td>
+        <td>
+          {if $prispevek->platneDo>0}
+            {$prispevek->platneDo|date:'j. n. Y'}
+          {else}
+            trvale
+          {/if}
+        </td>
+        <td>{$prispevek->verejne?"ano":"ne"}</td>
+        <td><a n:href="Nastenka:edit $prispevek->id">Upravit</a></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+        
+{/block}

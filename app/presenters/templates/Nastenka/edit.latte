@@ -1,0 +1,25 @@
+{block content}
+
+<h3>Editace příspěvku na nástěnce</h3>
+
+<a n:href="Nastenka:default"><span class="glyphicon glyphicon-triangle-left" aria-hidden="true"></span> Zpět</a>
+<br>
+
+{control nastenkaForm}
+ 
+{/block}
+
+{block bottomscripts}
+       
+<script>
+  $(function () {
+    $('.datepicker').datetimepicker(
+    {
+      locale: 'cs',  // en
+      format: 'DD. MM. YYYY'  // MM/DD/YYYY
+    });
+    $('.datepicker').parent().find('.input-group-addon').html('<span class="glyphicon glyphicon-calendar"></span>');
+  });
+</script>
+        
+{/block}

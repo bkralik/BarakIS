@@ -18,6 +18,10 @@ $configurator->addConfig(__DIR__ . '/config/config.local.neon');
 
 Instante\Bootstrap3Renderer\DI\RendererExtension::register($configurator);
 
+// Source: http://www.radekdostal.cz/software/date-time-picker/
+RadekDostal\NetteComponents\DateTimePicker\TbDatePicker::register();
+RadekDostal\NetteComponents\DateTimePicker\TbDateTimePicker::register();
+
 $container = $configurator->createContainer();
 
 return $container;

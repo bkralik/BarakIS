@@ -11,35 +11,62 @@
       šířit informace o našem domě - můžete si zde prohlédnout fotogalerii nebo zjistit 
       zákonné údaje o SVJ.
     </p>
+    {if count($nastenka) != 0}
+      <br>
+      <h4>Údaje z Obchodního rejstříku</h4>
+
+      <dl class="dl-horizontal">
+        <dt>Obchodní jméno</dt>
+        <dd>Společenství vlastníků jednotek se sídlem Čiklova 647/3, Praha 2</dd>
+        <dt>Adresa sídla</dt>
+        <dd>Praha 2, Čiklova 647/3, PSČ 12800 - <a n:href="Homepage:mapa">mapa</a></dd>
+        <dt>Právní forma</dt>
+        <dd>Společenství vlastníků jednotek</dd>
+        <dt>IČO</dt>
+        <dd>26758504</dd>
+      </dl>
+
+      <a class="btn btn-default center-block" style="max-width: 400px;" href="https://or.justice.cz/ias/ui/rejstrik-firma.vysledky?subjektId=283895&typ=PLATNY">Zobrazit detaily &raquo;</a>
+    {/if}
   </div>
   <div class="col-md-4">
-    <style>
-      @media (min-width: 768px) {
-        .dl-horizontal dt {
-          width: 130px;
-        }  
+    {if count($nastenka) == 0}
+      <style>
+        // Tohle umí přisunout dl-horizontal víc vlevo (úspora místa)
+        @media (min-width: 768px) {
+          .dl-horizontal dt {
+            width: 130px;
+          }  
 
-        .dl-horizontal dd {
-          margin-left: 150px;
+          .dl-horizontal dd {
+            margin-left: 150px;
+          }
         }
-      }
-    </style>
-    
-    <h3>Údaje z Obchodního rejstříku</h3>
-    
-    <dl class="dl-horizontal">
-      <dt>Obchodní jméno</dt>
-      <dd>Společenství vlastníků jednotek se sídlem Čiklova 647/3, Praha 2</dd>
-      <dt>Adresa sídla</dt>
-      <dd>Praha 2, Čiklova 647/3, PSČ 12800 - <a n:href="Homepage:mapa">mapa</a></dd>
-      <dt>Právní forma</dt>
-      <dd>Společenství vlastníků jednotek</dd>
-      <dt>IČO</dt>
-      <dd>26758504</dd>
-    </dl>
-    
-    <a class="btn btn-default center-block"  href="https://or.justice.cz/ias/ui/rejstrik-firma.vysledky?subjektId=283895&typ=PLATNY">Zobrazit detaily &raquo;</a>
-    
+      </style>
+      <h4>Údaje z Obchodního rejstříku</h4>
+      <dl class="dl-horizontal">
+        <dt>Obchodní jméno</dt>
+        <dd>Společenství vlastníků jednotek se sídlem Čiklova 647/3, Praha 2</dd>
+        <dt>Adresa sídla</dt>
+        <dd>Praha 2, Čiklova 647/3, PSČ 12800 - <a n:href="Homepage:mapa">mapa</a></dd>
+        <dt>Právní forma</dt>
+        <dd>Společenství vlastníků jednotek</dd>
+        <dt>IČO</dt>
+        <dd>26758504</dd>
+      </dl>
+      <a class="btn btn-default center-block" href="https://or.justice.cz/ias/ui/rejstrik-firma.vysledky?subjektId=283895&typ=PLATNY">Zobrazit detaily &raquo;</a>
+      
+    {else}
+      <h3>Nástěnka</h3>
+
+      <div class="panel panel-default" n:foreach="$nastenka as $prispevek">
+        <div class="panel-heading">{$prispevek->nadpis}</div>
+        <div class="panel-body">
+          {$prispevek->text}
+        </div>
+        <div class="panel-footer">{$prispevek->platneOd|date:'j. n. Y'} - {$prispevek->autor} <i class="text-muted pull-right" n:if="$prispevek->verejne && $user->loggedIn">veřejné</i></div>
+      </div> 
+    {/if}
   </div>
 </div>
         

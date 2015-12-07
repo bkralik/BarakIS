@@ -18,6 +18,7 @@
 
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{$basePath}/css/bootstrap-datetimepicker.min.css">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -62,6 +63,9 @@
             {if $user->loggedIn}
             <li{ifCurrent Osoby:default} class="active"{/ifCurrent}><a n:href="Osoby:default">Osoby</a></li>
             <li{ifCurrent Osoby:nastaveni} class="active"{/ifCurrent}><a n:href="Osoby:nastaveni">Nastavení</a></li>
+            {/if}
+            {if $user->loggedIn && $user->isInRole('spravce')}
+            <li{ifCurrent Nastenka:default} class="active"{/ifCurrent}><a n:href="Nastenka:default">Nástěnka</a></li>
             {/if}
             <li{ifCurrent Kontakt:default} class="active"{/ifCurrent}><a n:href="Kontakt:default">Kontakt</a></li>
             <li{ifCurrent Sign:in} class="active"{/ifCurrent}>
@@ -113,6 +117,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <script src="//nette.github.io/resources/js/netteForms.min.js"></script>
+    <script src="{$basePath}/js/moment-with-locales.js"></script>
+    <script src="{$basePath}/js/bootstrap-datetimepicker.min.js"></script>
     <script src="{$basePath}/js/main.js"></script>
 
     <script>
@@ -120,6 +126,7 @@
         $('[data-toggle="tooltip"]').tooltip();
       });
     </script>
+    {block bottomscripts}{/block}
   </body>
 </html>
 
