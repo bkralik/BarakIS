@@ -1,6 +1,6 @@
 {block content}
 
-<h3>Nástěnka <!--<small n:if="$user->loggedIn && $user->isInRole('spravce')"><a n:href="Osoby:create"><span class="glyphicon glyphicon-star"></span> Založit</a></small>--></h3>
+<h3>Nástěnka <small n:if="$user->loggedIn && $user->isInRole('spravce')"><a n:href="Nastenka:create"><span class="glyphicon glyphicon-star"></span> Přidat příspěvek</a></small></h3>
 
 <div class="table-responsive">
   <table class="table">

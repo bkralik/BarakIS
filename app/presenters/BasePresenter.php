@@ -14,13 +14,13 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
     protected function startup() {
         parent::startup();
         
-        $nonLoginPresenters = array('Sign', 'Api');
+        $loginPresenters = array('Nastenka', 'Osoby');
         $presenterName = $this->getPresenter()->name;
         
-        /*if(!in_array($presenterName, $nonLoginPresenters) && ($this->user->isLoggedIn() != true)) {
-            $this->flashMessage("Pro vstup do systému se přihlašte, prosím.");
+        if(in_array($presenterName, $loginPresenters) && ($this->user->isLoggedIn() != true)) {
+            $this->flashMessage("Pro zobrazení stránky se přihlašte, prosím.");
             $this->redirect("Sign:in");
-        }*/
+        }
     }
     
     protected function beforeRender() {
