@@ -20,7 +20,7 @@
         <td>{$prispevek->nadpis}</td>
         <td>{$prispevek->text|truncate:50}</td>
         <td>{$prispevek->platneOd|date:'j. n. Y'}</td>
-        <td>{$prispevek->autor}</td>
+        <td>{$prispevek->uzivatel->jmeno}</td>
         <td>
           {if $prispevek->platneDo>0}
             {$prispevek->platneDo|date:'j. n. Y'}
@@ -29,7 +29,7 @@
           {/if}
         </td>
         <td>{$prispevek->verejne?"ano":"ne"}</td>
-        <td><a n:href="Nastenka:edit $prispevek->id">Upravit</a></td>
+        <td><a n:href="Nastenka:edit $prispevek->id"><span class="glyphicon glyphicon-pencil"></span> Upravit</a></td>
       </tr>
     </tbody>
   </table>

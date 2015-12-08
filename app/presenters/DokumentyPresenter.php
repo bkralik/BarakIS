@@ -107,7 +107,7 @@ class DokumentyPresenter extends BasePresenter
     public function sendDokumentMails($docID) {
         $d = $this->dokument->find($docID);
         
-        $lidi = $this->uzivatel->findBy(array('chceMaily' => 1));
+        $lidi = $this->uzivatel->findBy(array('chceMaily' => 1, 'smazan' => 0));
         
         $link = $this->link('//Dokumenty:download', $d->id);
         

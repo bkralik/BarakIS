@@ -83,7 +83,7 @@ class NastenkaPresenter extends BasePresenter
         
         $values->platneOd = $values->platneOd->format('U');
         
-        $values->autor = $this->user->getIdentity()->jmeno;
+        $values->uzivatel_id = $this->user->id;
         
         if(empty($values->id)) {
             $id = $this->nastenka->insert($values);

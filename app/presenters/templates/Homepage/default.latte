@@ -64,7 +64,7 @@
         <div class="panel-body">
           {$prispevek->text}
         </div>
-        <div class="panel-footer">{$prispevek->platneOd|date:'j. n. Y'} - {$prispevek->autor} <i class="text-muted pull-right" n:if="$prispevek->verejne && $user->loggedIn">veřejné</i></div>
+        <div class="panel-footer">{$prispevek->platneOd|date:'j. n. Y'} - {$prispevek->uzivatel->jmeno} <i class="text-muted pull-right" n:if="$prispevek->verejne && $user->loggedIn">veřejné</i></div>
       </div> 
     {/if}
   </div>

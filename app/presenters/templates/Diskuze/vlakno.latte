@@ -1,0 +1,72 @@
+{block content}
+<style>
+  .forum .forum-post-panel {
+    margin-bottom: 1em;
+}
+
+.forum.media-list li img.avatar {
+    display: block;
+    margin: 0 auto;
+}
+
+.forum.media-list li .user-info {
+    text-align: center;
+    width: 8em;
+}
+
+@media (max-width: 760px) {
+    .forum.media-list li .user-info {
+        float: none;
+        width: 100%;
+        margin-bottom: 1em;
+    }
+}
+</style>
+
+  <h1 class="page-header"><i class="fa fa-pencil"></i> {$basePrispevek->titulek} 
+    <a class="btn btn-default" n:href="Diskuze:default"><i class="fa fa-backward"></i> Zpět na seznam témat</a>
+    <a class="btn btn-default" href="#"><i class="fa fa-bookmark"></i> Sledovat téma</a>
+    <a class="btn btn-default" n:href="Diskuze:create $basePrispevek->id"><i class="fa fa-star"></i> Přidat příspěvek</a>
+  </h1>
+  
+  <ul class="media-list forum" n:foreach="$prispevky as $prispevek">
+    <!-- Forum Post -->
+    <li class="media well">
+      <div class="pull-left user-info" href="#">
+        <!--<img class="avatar img-circle img-thumbnail" src="http://snipplicious.com/images/guest.png"
+          width="64" alt="Generic placeholder image">-->
+        
+        <strong><a n:href="Osoby:default">{$prispevek->uzivatel->jmeno}</a></strong>
+        <small>
+          {if $user->isInRole('vybor')}
+            Člen výboru SVJ
+          {elseif $user->isInRole('clen')}
+            Člen SVJ
+          {elseif $user->isInRole('spravce')}
+            Správce stránek
+          {/if}
+        </small>
+        <br>
+        <small class="btn-group btn-group-xs">
+          <a class="btn btn-default" href="mailto:{$prispevek->uzivatel->email}"><i class="fa fa-envelope-o"></i></a>
+          <a class="btn btn-default" n:href="Osoby:default"><i class="fa fa-eye"></i></a>
+          <!--<strong class="btn btn-success">+451</strong>-->
+        </small>
+      </div>
+      <div class="media-body">
+        <!-- Post Info Buttons -->
+        <div class="forum-post-panel btn-group btn-group-xs">
+          <span class="btn btn-default"><i class="fa fa-clock-o"></i> Přidáno {$prispevek->cas|date:'d. m. Y v H:i'}</span>
+          <span class="btn btn-default" n:if="$prispevek->editcas > 0"><i class="fa fa-edit"></i> Upraveno {$prispevek->editcas|date:'d. m. Y v H:i'}</span>
+          <a n:href="Diskuze:edit $prispevek->id" class="btn btn-success" n:if="$user->id == $prispevek->uzivatel->id"><i class="fa fa-pencil"></i> Upravit</a>
+        </div>
+        <!-- Post Info Buttons END -->
+        <!-- Post Text -->
+        <p>{!$prispevek->text|escape|nl2br}</p>
+        <!-- Post Text EMD -->
+      </div>
+    </li>
+    <!-- Forum Post END -->
+  </ul>
+
+{/block}

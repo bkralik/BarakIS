@@ -19,6 +19,7 @@
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <link rel="stylesheet" href="{$basePath}/css/bootstrap-datetimepicker.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -61,13 +62,15 @@
             <li{ifCurrent Homepage:default} class="active"{/ifCurrent}><a n:href="Homepage:default">Domů</a></li>
             <li{ifCurrent Dokumenty:default} class="active"{/ifCurrent}><a n:href="Dokumenty:default">Dokumenty</a></li>
             {if $user->loggedIn}
+            <li{ifCurrent Diskuze:default} class="active"{/ifCurrent}><a n:href="Diskuze:default">Diskuze</a></li>
             <li{ifCurrent Osoby:default} class="active"{/ifCurrent}><a n:href="Osoby:default">Osoby</a></li>
             <li{ifCurrent Osoby:nastaveni} class="active"{/ifCurrent}><a n:href="Osoby:nastaveni">Nastavení</a></li>
+            {else}
+            <li{ifCurrent Kontakt:default} class="active"{/ifCurrent}><a n:href="Kontakt:default">Kontakt</a></li>
             {/if}
             {if $user->loggedIn && $user->isInRole('spravce')}
             <li{ifCurrent Nastenka:default} class="active"{/ifCurrent}><a n:href="Nastenka:default">Nástěnka</a></li>
             {/if}
-            <li{ifCurrent Kontakt:default} class="active"{/ifCurrent}><a n:href="Kontakt:default">Kontakt</a></li>
             <li{ifCurrent Sign:in} class="active"{/ifCurrent}>
               <a n:if="$isLogged == true" n:href="Sign:out">Odhlásit se</a>
               <a n:if="$isLogged == false" n:href="Sign:in">Přihlásit se</a>
@@ -119,6 +122,7 @@
     <script src="//nette.github.io/resources/js/netteForms.min.js"></script>
     <script src="{$basePath}/js/moment-with-locales.js"></script>
     <script src="{$basePath}/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="{$basePath}/js/rowlink.js"></script>
     <script src="{$basePath}/js/main.js"></script>
 
     <script>

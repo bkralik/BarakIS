@@ -28,7 +28,7 @@ class OsobyPresenter extends BasePresenter
             $this->flashMessage('Tato sekce je pouze pro registrované. Pro pokračování se přihlašte, prosím.');
             $this->redirect('Sign:in');
         }
-        $this->template->osoby = $this->uzivatel->findAll()->order("jmeno ASC");
+        $this->template->osoby = $this->uzivatel->findBy(array('smazan' => 0))->order("jmeno ASC");
         $this->template->transformer = $this->t;
 	}
 
@@ -147,9 +147,9 @@ class OsobyPresenter extends BasePresenter
             $this->error("Uživatel s daným ID neexistuje.");
         }
         
-        $this->role->findBy(array('uzivatel_id' => $u->id))->delete();
+        //$this->role->findBy(array('uzivatel_id' => $u->id))->delete();
         
-        $u->delete();
+        $u->update(array('smazan' => 1));
         
         $this->flashMessage('Uživatel byl úspěšně smazán.', 'success');
         $this->log->l('uzivatel.delete', $id);

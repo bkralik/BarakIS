@@ -1,0 +1,59 @@
+{block content}
+
+<style>
+  .table.rowlink td:not(.rowlink-skip),
+.table .rowlink td:not(.rowlink-skip) {
+  cursor: pointer;
+}
+.table.rowlink td:not(.rowlink-skip) a,
+.table .rowlink td:not(.rowlink-skip) a {
+  font: inherit;
+  color: inherit;
+  text-decoration: inherit;
+}
+.table-hover.rowlink tr:hover td,
+.table-hover .rowlink tr:hover td {
+  background-color: #cfcfcf;
+}
+</style>
+
+<h3>Diskuzní forum</h3>
+
+<div class="table-responsive">
+  <table class="table table-striped  table-hover">
+    <thead>
+      <tr>
+        <th>Vlákno</th>
+        <th>Čas</th>
+        <th>Autor</th>
+        <th>Příspěvků</th>
+        <th>&nbsp;</th>
+      </tr>
+    </thead>
+    <tbody class="rowlink" data-link="row">
+      <tr n:foreach="$vlakna as $vlakno">
+        <td>{$vlakno->titulek}</td>
+        <td>{$vlakno->cas|date:'j. n. Y'}</td>
+        <td>{$vlakno->uzivatel->jmeno}</td>
+        <td>{count($vlakno->related('diskuze.parent'))+1}</td>
+        <td><a n:href="Diskuze:vlakno $vlakno->id"><span class="glyphicon glyphicon-eye-open"></span> Zobrazit</a></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+ 
+        <br><br>        
+<div class="col-sm-6">
+  <h4>Přidat nové diskuzní vlákno</h4>
+  {control newVlaknoForm}
+</div>
+{/block}
+
+
+{block bottomscripts}      
+<script>
+  $(function () {
+    $('tbody.rowlink').rowlink()
+  });
+</script>        
+{/block}

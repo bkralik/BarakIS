@@ -77,7 +77,7 @@ class UserManager extends Nette\Object implements Nette\Security\IAuthenticator
 	{
 		list($username, $password) = $credentials;
 
-		$row = $this->database->table(self::TABLE_NAME)->where(self::COLUMN_NAME, $username)->fetch();
+		$row = $this->database->table(self::TABLE_NAME)->where(self::COLUMN_NAME, $username)->where('smazan = 0')->fetch();
 
 		if (!$row) {
 			throw new Nette\Security\AuthenticationException('Neplatné přihlašovací jméno nebo heslo.', self::IDENTITY_NOT_FOUND);

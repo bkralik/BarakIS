@@ -29,4 +29,5 @@ services:
 	- App\Model\DruzstvoMailer(%mailerFromAddress%)
 	- App\Model\Log
 	- App\Model\Nastenka
+	- App\Model\Diskuze
 	router: App\RouterFactory::createRouter
