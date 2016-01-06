@@ -17,6 +17,7 @@ class RouterFactory
 	{
 		$router = new RouteList;
 		$router[] = new Route('Sign/<action>', 'Sign:in', Route::SECURED);
+		$router[] = new Route('Osoby/nastaveni', 'Osoby:nastaveni', Route::SECURED);
 		$router[] = new Route('<presenter>/<action>[/<id>]', 'Homepage:default');
 		return $router;
 	}
